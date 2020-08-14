@@ -1,6 +1,11 @@
 .App {
-  text-align: center;
-  background: #444444;
-  color: #ffffff;
-  overflow-y: auto;
+  /* text-align: center; */
+  color: var(--text-color-primary);
+  overflow: auto;
+  height: 100%;
+}
+
+.App main {
+  height: 100%;
+  display: flex;
 }
