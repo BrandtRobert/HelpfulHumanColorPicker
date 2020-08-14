@@ -48,7 +48,7 @@ app.use(cors());
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
-  graphiql: true,
+  graphiql: false,
   context: {database}
 }));
 app.listen(4000);
