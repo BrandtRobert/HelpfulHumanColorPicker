@@ -1,31 +1,55 @@
 const express = require('express');
 const {graphqlHTTP} = require('express-graphql');
 const {buildSchema} = require('graphql');
+const cors = require('cors');
 
 const colors = [
-    "#112233", "#551133", "#112266", "#44FF22",
-    "#112233", "#551133", "#112266"
+  {
+    color: "#112233",
+    family: "blue",
+  },
+  {
+    color: "#551133",
+    family: "red",
+  },
+  {
+    color: "#112266",
+    family: "blue",
+  },
+  {
+    color: "#44FF22",
+    family: "green",
+  },
+  {
+    color: "#1E4F66",
+    family: "blue"
+  }
 ]
 
-// Construct a schema, using GraphQL schema language
+// GraphQL color schema
+// Colors have a family (that is the primary hue we would identify them with i.e. red, green, blue, orange)
+//    and a hex-value defining the rgb params of the color
 var schema = buildSchema(`
   type Query {
-    hello: String,
-    colors: [String]!
+    colors: [Color]!
+  }
+  type Color {
+    color: String!
+    family: String!
   }
 `);
 
 // The root provides a resolver function for each API endpoint
 var root = {
-  hello: () => {
-    return 'Hello world abc!';
-  },
   colors: () => {
     return colors;
   }
 };
 
 var app = express();
+// In a production environment we would in theory be making requests to the same server / domain
+// Thus we would not want to allow cross origin access for security reasons
+app.use(cors());
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
