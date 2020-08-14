@@ -1,0 +1,56 @@
+[
+    {
+        "name": "red",
+        "red": 255,
+        "green": 0,
+        "blue": 0
+    },
+    {
+        "name": "green",
+        "red": 0,
+        "green": 255,
+        "blue": 0
+    },
+    {
+        "name": "blue",
+        "red": 0,
+        "green": 0,
+        "blue": 255
+    },
+    {
+        "name": "yellow",
+        "red": 255,
+        "green": 255,
+        "blue": 0
+    },
+    {
+        "name": "orange",
+        "red": 255,
+        "green": 128,
+        "blue": 0
+    },
+    {
+        "name": "purple",
+        "red": 128,
+        "green": 0,
+        "blue": 128
+    },
+    {
+        "name": "teal",
+        "red": 0,
+        "green": 128,
+        "blue": 128
+    },
+    {
+        "name": "grey",
+        "red": 28,
+        "green": 28,
+        "blue": 28
+    },
+    {
+        "name": "black",
+        "red": 0,
+        "green": 0,
+        "blue": 0
+    }
+]

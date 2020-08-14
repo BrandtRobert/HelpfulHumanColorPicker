@@ -4,14 +4,15 @@ import useWindowDimensions from '../hooks/WindowDimensions.js'
 import ColorCard from './ColorCard.js';
 import '../styles/CardGrid.css'
 
-function arrangeColors(colors, itemsPerRow) {
+function arrangeColors(colors, itemsPerRow,page) {
     // Reshape colors to 4x4 array and then display row by row
     // Chose to do this over flexbox wrapping to maintain consistency
     const toMatrix = (arr, width) => 
         arr.reduce((rows, key, index) => (index % width === 0 ? rows.push([key]) 
         : rows[rows.length-1].push(key)) && rows, []);
     // Slice for a max of 12 cards per page
-    return toMatrix(colors, itemsPerRow).slice(0, 12 / itemsPerRow);
+    const rows = 12 / itemsPerRow;
+    return toMatrix(colors, itemsPerRow).slice(page * rows, (page*rows) + rows);
 }
 
 function getItemsPerRow(width) {
@@ -27,8 +28,16 @@ function getItemsPerRow(width) {
     }
 }
 
+/**
+ * Main componet for the list view. Creates color cards for each color and arranges them into rows.
+ *  also dynamically slices the arrays based on the current pagination page, allowing us to simulate pagination
+ *  without sending more requests to the server. However, this strategy might want to be reconsidered for very large
+ *  sets of data.
+ */
 export default function CardGrid(props) {
+    // Fetch the viewport width so we can rearrange the grid based on page width
     const {width} = useWindowDimensions();
+    const {page} = props;
     let colors = props.colors;
     if (props.filter !== '') {
         colors = colors.filter((colorObj) => {
@@ -38,8 +47,7 @@ export default function CardGrid(props) {
     // Get the number of card to display per row
     const itemsPerRow = getItemsPerRow(width);
     // Slice for a max of 12 cards per page
-    const colorMatrix = arrangeColors(colors, itemsPerRow);
-
+    const colorMatrix = arrangeColors(colors, itemsPerRow, page);
     return (
         <div className="CardGrid">
         {

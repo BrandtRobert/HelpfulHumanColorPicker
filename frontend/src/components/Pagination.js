@@ -1,20 +1,30 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import '../styles/Pagination.css';
 
+/**
+ * Creates and presents the pagination at the bottom of the list page.
+ * On click of a pagination element update page in the main app is called.
+ * This propagates the change of the page number to the cardview. This indirection in
+ * state changes is something that could likely be solved with redux which I didn't use in this app.
+ */
 export default function Pagination(props) {
-    // const {numColors, currentPage} = props;
-    const {numColors, currentPage} = {numColors: 10, currentPage: 1};
-    const pages = [...Array(10).keys()];
+    const {numPages, updatePage, page} = props;
+    const pages = [...Array(numPages).keys()];
     return (
         <ul className="PaginationList">
         {
         pages.map((num, idx) => {
             return(
-                currentPage === (idx+1) ? (
-                    <li key={ idx } style={{borderBottom: "2px solid black" }}><Link to={"/" + (num + 1)}>{ num + 1 }</Link></li>
+                page === (idx) ? (
+                    <li 
+                        key={ idx } 
+                        onClick={() => updatePage(num)} 
+                        style={{borderBottom: "2px solid black" }}
+                    >
+                        {num + 1}
+                    </li>
                 ) : (
-                    <li key={ idx }><Link to={"/" + (num + 1)}>{ num + 1 }</Link></li>
+                    <li key={ idx } onClick={() => updatePage(num)}>{ num + 1 }</li>
                 )
             )
         })

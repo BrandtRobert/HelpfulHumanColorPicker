@@ -2,29 +2,14 @@ const express = require('express');
 const {graphqlHTTP} = require('express-graphql');
 const {buildSchema} = require('graphql');
 const cors = require('cors');
+const sqlite3 = require('sqlite3');
 
-const colors = [
-  {
-    color: "#112233",
-    family: "blue",
-  },
-  {
-    color: "#551133",
-    family: "red",
-  },
-  {
-    color: "#112266",
-    family: "blue",
-  },
-  {
-    color: "#44FF22",
-    family: "green",
-  },
-  {
-    color: "#1E4F66",
-    family: "blue"
-  }
-]
+/**
+ * Simple graphQL express server that fetches colors from the sqlite database. Currently,
+ *  there is only one query supported which is just a batch fetch from the database. We woudl likely
+ *  want to implement a query for pagination so that we can select small color subsets. It would also
+ *  be wise to add a related color query, where you could ask for colors similiar to one you like.
+ */
 
 // GraphQL color schema
 // Colors have a family (that is the primary hue we would identify them with i.e. red, green, blue, orange)
@@ -39,10 +24,20 @@ var schema = buildSchema(`
   }
 `);
 
+const database = new sqlite3.Database("../model/color.db");
+
 // The root provides a resolver function for each API endpoint
 var root = {
-  colors: () => {
-    return colors;
+  colors: (obj, context) => {
+    return (
+      new Promise((resolve, reject) => {
+        context.database.all("SELECT color, family FROM Colors", [], (err, result) => {
+          if(err) {
+            reject([]);
+          }
+          resolve(result);
+      })})
+    );
   }
 };
 
@@ -54,6 +49,8 @@ app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
   graphiql: true,
+  context: {database}
 }));
 app.listen(4000);
+
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
