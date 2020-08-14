@@ -1,0 +1,11 @@
+.CardRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 40px;
+}
+
+.CardGrid > .CardRow > * {
+    margin-left: 25px;
+    margin-right: 25px;
+}

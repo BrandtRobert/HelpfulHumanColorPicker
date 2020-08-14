@@ -6,6 +6,7 @@ function TopBar(props) {
     return (
         <div className="TopBar" data-testid="TopBar">
             <img id="logo" src={logo} alt="Helpful Human Logo"></img>
+            <input id="searchBar" type="text" defaultValue="Search"></input>
         </div>
     )
 }
