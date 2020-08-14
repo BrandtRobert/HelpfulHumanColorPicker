@@ -6,7 +6,7 @@ import '../styles/SideBar.css';
 function SideBar(props) {
     const {updateFilter, clearColorFilter, randomColor} = props;
     const colorFilters = [
-        "Red", "Green", "Blue"
+        "Red", "Green", "Blue", "Yellow", "Grey", "Teal"
     ]
     const history = useHistory();
     return (

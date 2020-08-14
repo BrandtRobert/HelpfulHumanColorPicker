@@ -2,29 +2,7 @@ const express = require('express');
 const {graphqlHTTP} = require('express-graphql');
 const {buildSchema} = require('graphql');
 const cors = require('cors');
-
-const colors = [
-  {
-    color: "#112233",
-    family: "blue",
-  },
-  {
-    color: "#551133",
-    family: "red",
-  },
-  {
-    color: "#112266",
-    family: "blue",
-  },
-  {
-    color: "#44FF22",
-    family: "green",
-  },
-  {
-    color: "#1E4F66",
-    family: "blue"
-  }
-]
+const sqlite3 = require('sqlite3');
 
 // GraphQL color schema
 // Colors have a family (that is the primary hue we would identify them with i.e. red, green, blue, orange)
@@ -39,10 +17,20 @@ var schema = buildSchema(`
   }
 `);
 
+const database = new sqlite3.Database("../model/color.db");
+
 // The root provides a resolver function for each API endpoint
 var root = {
-  colors: () => {
-    return colors;
+  colors: (obj, context) => {
+    return (
+      new Promise((resolve, reject) => {
+        context.database.all("SELECT color, family FROM Colors", [], (err, result) => {
+          if(err) {
+            reject([]);
+          }
+          resolve(result);
+      })})
+    );
   }
 };
 
@@ -54,6 +42,8 @@ app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
   graphiql: true,
+  context: {database}
 }));
 app.listen(4000);
+
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
