@@ -1,0 +1,21 @@
+.PaginationList {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0px;
+    padding: 0px;
+    width: 300px;
+}
+
+.PaginationList li a {
+    text-decoration: none;
+    color: var(--text-color-primary);
+    font-size: 14pt;
+    font-weight: bold;
+    padding: 2px;
+}
+
+.PaginationList li a:hover {
+    color: var(--text-color-light)
+}

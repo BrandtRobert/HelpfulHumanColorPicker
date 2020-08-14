@@ -1,0 +1,15 @@
+.Content {
+    margin-top: 40px;
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+@media only screen and (max-width: 800px) {
+    .Content {
+        align-items: center;
+        margin-left: 0;
+    }
+}

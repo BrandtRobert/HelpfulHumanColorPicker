@@ -1,0 +1,31 @@
+.TopBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #363c3c;
+    /* Top Right Bottom Left */
+    padding: 15px 20px 15px 20px;
+    box-shadow: 0px 3px 0px 0px var(--shadow-color);
+}
+
+.TopBar #logo {
+    height: 35px;
+    width: 35px;
+}
+
+.TopBar #searchBar {
+    border-radius: 10px;
+    width: 15%;
+    min-width: 150px;
+    max-width: 200px;
+    color: var(--text-color-light);
+    padding-left: 10px;
+    font-size: 12pt;
+    font-weight: 500;
+    border-style: none;
+}
+
+.TopBar #searchBar:focus {
+    color: #555555;
+    outline: none;
+}
