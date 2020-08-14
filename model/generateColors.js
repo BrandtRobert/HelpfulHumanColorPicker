@@ -1,6 +1,13 @@
-const fs = require("fs");
-const { WSAEREMOTE } = require("constants");
+/**
+ * Script to generate some random colors for the database.
+ * This script picks random numbers for red, green and blue values,
+ * it then uses a simple distance algorithm to compare these to a set of primary hues.
+ * This allows us to assign a color family to any random color. However, the algorithm doesn't
+ * work super well currently. This is partially because the process of automatically identifying
+ * and classifying color is trickier than it seems.
+ */
 
+const fs = require("fs");
 const NUM_COLORS = 100
 const primaryHues = JSON.parse(fs.readFileSync('./primaryHues.json'))
 

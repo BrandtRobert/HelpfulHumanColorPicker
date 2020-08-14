@@ -9,7 +9,7 @@ function getRelatedColors(colors, currentColor) {
     let relatedColors = colors.filter((colorObj) => {
       return colorObj.family === currentColor.family
     })
-    if (relatedColors.length < 5) {
+    if (relatedColors.length < 3) {
         const randIdx = Math.trunc(Math.random() * 94)
         relatedColors = colors.slice(randIdx, randIdx + 5)
     }
@@ -17,6 +17,13 @@ function getRelatedColors(colors, currentColor) {
     return relatedColors
 }
 
+/**
+ * Color detail page view. Displays the color given in the url and tries to 
+ *  generate a set of related colors based on the color given. If it can't 
+ *  then it will just select some random colors from the available list.
+ * Also uses the dimensions of the viewport to adjust the amount of related swatches displayed.
+ * The clear buttom returns us back to the list view but does not clear out any of the previous filters.
+ */
 export default function ColorDetail(props) {
     const { color } = useParams();
     const { allColors } = props;

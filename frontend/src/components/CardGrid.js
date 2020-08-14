@@ -28,7 +28,14 @@ function getItemsPerRow(width) {
     }
 }
 
+/**
+ * Main componet for the list view. Creates color cards for each color and arranges them into rows.
+ *  also dynamically slices the arrays based on the current pagination page, allowing us to simulate pagination
+ *  without sending more requests to the server. However, this strategy might want to be reconsidered for very large
+ *  sets of data.
+ */
 export default function CardGrid(props) {
+    // Fetch the viewport width so we can rearrange the grid based on page width
     const {width} = useWindowDimensions();
     const {page} = props;
     let colors = props.colors;
@@ -41,7 +48,6 @@ export default function CardGrid(props) {
     const itemsPerRow = getItemsPerRow(width);
     // Slice for a max of 12 cards per page
     const colorMatrix = arrangeColors(colors, itemsPerRow, page);
-
     return (
         <div className="CardGrid">
         {

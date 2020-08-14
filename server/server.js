@@ -4,6 +4,13 @@ const {buildSchema} = require('graphql');
 const cors = require('cors');
 const sqlite3 = require('sqlite3');
 
+/**
+ * Simple graphQL express server that fetches colors from the sqlite database. Currently,
+ *  there is only one query supported which is just a batch fetch from the database. We woudl likely
+ *  want to implement a query for pagination so that we can select small color subsets. It would also
+ *  be wise to add a related color query, where you could ask for colors similiar to one you like.
+ */
+
 // GraphQL color schema
 // Colors have a family (that is the primary hue we would identify them with i.e. red, green, blue, orange)
 //    and a hex-value defining the rgb params of the color

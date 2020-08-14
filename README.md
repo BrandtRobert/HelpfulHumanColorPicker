@@ -1,68 +1,43 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Helpful Human Coding Assessment Color App
 
-## Available Scripts
+This application was built for a coding assessment. The stack used for the application is:
+* SQLite3
+* Node / Express
+* GraphQL
+* React / ApolloClient
 
-In the project directory, you can run:
+The purpose of the app is to display simple color swatches, and demonstrate some basic navigation and filtering capabilities.
 
-### `yarn start`
+I chose to use this stack to challenge myself and increase my familiarity with a full JS stack. This is the first time I have created an application using graphql. Additionally, all the styling for the application is custom css. However, if I wear to do this again I would likely use a UI framework of components for consistency. However, I wanted to match the spec as closely as possible.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Unit Testing
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+I ran out of time to add unit tests. But was planning on implementing some tests for the front end using jest. By adding unit tests you can make a process of continuous integration allowing you to confidently push application changes while having a testing suite back up that you didn't break anything. There is also a snapshot feature that can ensure that the UI hasn't changed if that is an important criteria.
 
-### `yarn test`
+### Running the application
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Creating a data table
 
-### `yarn build`
+You can use the generateColors script in the model directory to create a .sql file that you can dump into a standard SQL database. For this application I chose SQLite for simplicity. In future iterations of the application I would likely use mySQL instead but again I felt it was important to get a working application before over optimizing. Plus, SQLite is an excellency option for dev environments as well.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### GraphQL Server
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+The graphql server can be started by changing in the server directory and running `node server.js`. This will start the server on localhost port 4000.
+```
+yarn install # or npm install
+cd ./server
+node server.js # or use yarn start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Frontend / ReactApp
 
-### `yarn eject`
+You can run the react app by changing into the frontend directory, installing the dependencies and running `yarn start`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+cd ./frontend
+yarn install
+yarn start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

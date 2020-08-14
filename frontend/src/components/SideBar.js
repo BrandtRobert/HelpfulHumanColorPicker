@@ -3,6 +3,10 @@ import { useHistory } from "react-router-dom";
 import Button from './Button.js';
 import '../styles/SideBar.css';
 
+/**
+ * Sidebar component for the app, manages a button which will send us to the details page
+ *  of a random color. In addition, it allows presents a set of filters which allow us to filter by color family.
+ */
 function SideBar(props) {
     const {updateFilter, clearColorFilter, randomColor} = props;
     const colorFilters = [

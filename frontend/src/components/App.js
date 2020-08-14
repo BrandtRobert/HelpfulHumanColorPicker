@@ -13,6 +13,10 @@ import ColorDetail from './ColorDetail';
 import '../styles/Content.css'
 import '../styles/App.css';
 
+/**
+ * Query used to fetch colors and their families from the server.
+ * A color family is the primary hue we might associate with it (red, green, blue, black)
+ */
 const COLORS = gql `
 {
     colors {
@@ -39,6 +43,10 @@ export default class App extends Component {
     this.updateSearch = this.updateSearch.bind(this);
   }
 
+  /**
+   * Update state of the sidebar color filter.
+   * This will also reset the pagination for the set of filtered colors.
+   */
   updateColorFilter(event) {
     const f = event.target.textContent;
     this.setState({
@@ -47,6 +55,9 @@ export default class App extends Component {
     });
   }
 
+  /**
+   * Reset color filter back to non-filtering mode
+   */
   clearColorFilter() {
     this.setState({
       filter: "",
@@ -54,6 +65,9 @@ export default class App extends Component {
     })
   }
 
+  /**
+   * Get a random color from the available colors. Used by the random color button.
+   */
   randomColor() {
     if (this.state.colors.length < 1) {
       return "#FFFFFF"
@@ -63,12 +77,18 @@ export default class App extends Component {
     }
   }
 
+  /**
+   * Update the pagination page to whichever number the user clicked.
+   */
   updatePage(nextPage) {
     this.setState({
       page: nextPage
     });
   }
 
+  /**
+   * On searchbar change update our search filter to the searchstring typed by the user.
+   */
   updateSearch(event) {
     const search = event.target.value;
     this.setState({
@@ -78,7 +98,7 @@ export default class App extends Component {
   }
 
   /**
-   * On mount query the server for available colors
+   * On mount query the server for available colors and set color state in the app.
    */
   componentDidMount() {
     const {client} = this.props;
@@ -93,18 +113,27 @@ export default class App extends Component {
 
   render() {
     const { client } = this.props;
+
+    // Filter the set of available colors based on the filter string
+    //  which is a color family i.e (red, green, blue, etc)
     let currentColors = this.state.colors;
     if (this.state.filter !== "") {
       currentColors = currentColors.filter((colorObj) => {
         return colorObj.family === this.state.filter
       });
     }
+    // Filter the set of colors based on the search string typed by user
+    //  this filtering is done after the color family filtering meaning that once you select
+    //  something on the left sidebar you will have applied one of two possible filters
     if (this.state.searchString !== "") {
       currentColors = currentColors.filter(colorObj => {
         return colorObj.color.includes(this.state.searchString);
       })
     }
+
     return (
+      // Using apollo client for graphql queries
+      //  and react router to route the app between detail and list page views
       <ApolloProvider client={client}>
       <Router>
         <div className="App">
